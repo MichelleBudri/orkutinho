@@ -26,6 +26,29 @@ function ProfileSidebar(propriedade) {
   )
 }
 
+function ProfileRelationsBox(propriedades){
+  return(
+    <ProfileRelationsBoxWrapper>
+    <h2 className="smallTitle">
+    {propriedades.title} ({propriedades.items.length})
+    </h2>
+
+    <ul>
+      {/* {seguidores.map((itemAtual) =>{
+        return(
+          <li key={itemAtual}>
+            <a href={`https://github.com/${itemAtual}`}>
+              <img src={`https://github.com/${itemAtual}.png`} />
+              <span>{itemAtual}</span>
+            </a>
+          </li>
+        )
+      })} */}
+    </ul>
+  </ProfileRelationsBoxWrapper>  
+  )
+}
+
 export default function Home() {
   const [comunidades, setComunidades] = React.useState([
     {
@@ -47,6 +70,22 @@ export default function Home() {
   const githubUser = "michellebudri";
   const firstName = "Michelle";
   const meusAmigos = ['juunegreiros', 'peas', 'luluvisotto', 'omariosouto', 'ricardoresende', 'guilhermeCSA-dev']
+  const [seguidores, setSeguidores] = React.useState([]);
+  // 0- Pegar o array de dados do github
+    React.useEffect(function(){
+      fetch('https://api.github.com/users/MichelleBudri/followers')
+
+      .then (function(respostaDoServidor){
+        return respostaDoServidor.json();
+      })
+      .then(function(respostaCompleta){
+        setSeguidores(respostaCompleta);
+      })
+
+    }, [])
+
+  // 1- Criar um box que vai ter um map, baseado nos items do array do github
+
 
   return (
     <>
@@ -105,7 +144,7 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea:'profileRelationsArea' }}>
-         
+          <ProfileRelationsBox title="Seguidores" items={seguidores} />
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
             Meus amigos ({meusAmigos.length})
@@ -124,8 +163,8 @@ export default function Home() {
               })}
             </ul>
           </ProfileRelationsBoxWrapper>  
-          <Box>
-            <ProfileRelationsBoxWrapper>
+
+          <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Minhas comunidades ({comunidades.length})
             </h2>
@@ -141,8 +180,7 @@ export default function Home() {
                 )
               })}
             </ul>
-          </ProfileRelationsBoxWrapper>
-          </Box>  
+          </ProfileRelationsBoxWrapper>   
         </div>
       </MainGrid>
     </>
