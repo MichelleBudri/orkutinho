@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import NextLink from 'next/link';
+// import Logo from '../../public/img/logo.svg';
 
 const BASE_URL = 'http://alurakut.vercel.app/';
 const v = '1';
@@ -24,7 +25,7 @@ export function OrkutinhoMenu({ githubUser }) {
   return (
     <OrkutinhoMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
-        <OrkutinhoMenu.Logo src={`${BASE_URL}/logo.svg`} />
+        <OrkutinhoMenu.Logo src={`img/logo.svg`} />
 
         <nav style={{ flex: 1 }}>
           {[{ name: 'Inicio', slug: '/'}, {name: 'Amigos', slug: '/amigos'}, {name: 'Comunidades', slug: '/comunidades'}].map((menuItem) => (
