@@ -27,12 +27,25 @@ function ProfileSidebar(propriedade) {
 }
 
 export default function Home() {
-  const [comunidades, setComunidades] = React.useState([{
-    id: '42434323434223432',
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
-  }]);
+  const [comunidades, setComunidades] = React.useState([
+    {
+      id: '42',
+      title: 'Amamos gatos',
+      image: 'img/gato.jpg'
+    },
+    {
+      id: '43',
+      title: 'Eu odeio acordar cedo',
+      image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+    },
+    {
+      id: '44',
+      title: 'Fanáticos por filmes e séries',
+      image: 'img/filme.jpg'
+    }
+  ]);
   const githubUser = "michellebudri";
+  const firstName = "Michelle";
   const meusAmigos = ['juunegreiros', 'peas', 'luluvisotto', 'omariosouto', 'ricardoresende', 'guilhermeCSA-dev']
 
   return (
@@ -46,7 +59,7 @@ export default function Home() {
         <div className="welcomeArea" style={{ gridArea:'welcomeArea' }}>
         <Box>
           <h1 className="title">
-            Bem vindo(a)
+            Bem vindo(a), {firstName}
           </h1>
 
           <OrkutNostalgicIconSet/>
@@ -61,7 +74,7 @@ export default function Home() {
             const comunidade = {
               id: new Date().toISOString(), // Armazenando a data e hora do elemento
               title: dadosDoForm.get('title'),
-              image: dadosDoForm.get('image')
+              image: dadosDoForm.get('image') || `https://picsum.photos/200?${Date.now()}`,
             }
             const comunidadesAtualizadas = [...comunidades, comunidade];
             setComunidades(comunidadesAtualizadas);
@@ -112,14 +125,13 @@ export default function Home() {
             </ul>
           </ProfileRelationsBoxWrapper>  
           <Box>
+            <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Minhas comunidades ({comunidades.length})
             </h2>
-
-            <ProfileRelationsBoxWrapper>
             <ul>
-              {comunidades.map((itemAtual) =>{
-                return(
+              {comunidades.slice(0, 6).map((itemAtual) => {
+                return (
                   <li key={itemAtual.id}>
                     <a href={`/users/${itemAtual.title}`}>
                       <img src={itemAtual.image} />
