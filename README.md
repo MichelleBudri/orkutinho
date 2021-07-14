@@ -5,8 +5,12 @@
 <img src="https://img.shields.io/static/v1?label=MichelleBudri&message=Orkutinho&color=d81d99"/> <img src="https://img.shields.io/github/license/MichelleBudri/orkutinho"/>
 
 
+</br>
+
 ## Descrição
 <p>Projeto desenvolvido durante a 3ª edição da Imersão React promovida pela Alura.</p>
+
+</br>
 
 ## Instalando o npm
 ```
