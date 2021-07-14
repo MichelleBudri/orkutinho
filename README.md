@@ -8,7 +8,12 @@
 ## Descrição
 <p>Projeto desenvolvido durante a 3ª edição da Imersão React promovida pela Alura.</p>
 
-## Como executar o projeto
+## Instalando o npm
+```
+npm install
+```
+
+## Executando o projeto
 ```
 npm run dev
 ```
