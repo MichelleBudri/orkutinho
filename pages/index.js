@@ -1,4 +1,6 @@
 import React from 'react';
+import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import { OrkutinhoMenu, OrkutinhoProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/orkutinhoCommons' // importando individualmente o componente menu
@@ -49,7 +51,7 @@ function ProfileRelationsBox(propriedades){
   )
 }
 
-export default function Home() {
+export default function Home(props) {
   const [comunidades, setComunidades] = React.useState([
     {
       id: '42',
@@ -67,8 +69,8 @@ export default function Home() {
       image: 'img/filme.jpg'
     }
   ]);
-  const githubUser = "michellebudri";
-  const firstName = "Michelle";
+  const githubUser = props.githubUser;
+  const firstName = props.githubUser;
   const meusAmigos = ['juunegreiros', 'peas', 'luluvisotto', 'omariosouto', 'ricardoresende', 'guilhermeCSA-dev']
   const [seguidores, setSeguidores] = React.useState([]);
   // 0- Pegar o array de dados do github
@@ -228,4 +230,26 @@ export default function Home() {
       </MainGrid>
     </>
   )
+}
+
+export async function getServerSideProps(ctx) {
+  const cookies = nookies.get(ctx);
+  const token = cookies.USER_TOKEN;
+  const decodedToken = jwt.decode(token);
+  const githubUser = decodedToken?.githubUser;
+
+  if (!githubUser) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      githubUser,
+    }
+  }
 }
